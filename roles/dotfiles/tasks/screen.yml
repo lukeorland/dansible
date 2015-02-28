@@ -1,0 +1,16 @@
+---
+
+- name: .ssh
+  file:
+    path: "{{ user_home }}/.ssh"
+    owner: "{{ user_name }}"
+    mode: 0700
+    state: directory
+
+# This enables agent-forwarding to a screen session.
+- name: .ssh/rc
+  copy:
+    src: ssh/rc
+    dest: "{{ user_home }}/.ssh/rc"
+    owner: "{{ user_name }}"
+    mode: 0700

@@ -1,0 +1,16 @@
+---
+
+- name: Add .gitconfig
+  copy:
+    src: gitconfig
+    dest: "{{ user_home }}/.gitconfig"
+    mode: 0664
+  with_items:
+    - gitconfig
+
+- name: Add .gitconfig.user
+  copy:
+    src: gitconfig.user
+    dest: "{{ user_home }}/.gitconfig.user"
+    mode: 0664
+    force: no

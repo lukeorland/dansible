@@ -1,0 +1,74 @@
+---
+
+- name: Vim bundle directory
+  file:
+    path: "{{ user_home }}/.vim/bundle"
+    owner: "{{ user_name }}"
+    mode: 0775
+    state: directory
+  register: dotvim_dir
+
+- name: Vim backup and swap directories
+  file:
+    path: "{{ user_home }}/.vim/tmp/{{ item }}"
+    owner: "{{ user_name }}"
+    mode: 0775
+    state: directory
+  with_items:
+    - backup
+    - swap
+
+- name: Clone Vundle.vim
+  git:
+    repo: https://github.com/gmarik/Vundle.vim.git
+    dest: "{{ user_home }}/.vim/bundle/Vundle.vim"
+    accept_hostkey: yes
+    version: master
+  sudo: no
+  register: vundle_vim
+
+- name: .vimrc
+  copy:
+    src: vim/vimrc
+    dest: "{{ user_home }}/.vimrc"
+    owner: "{{ user_name }}"
+    mode: 0664
+  register: dotvimrc
+
+- name: Vim config dirs
+  file:
+    dest: "{{ user_home }}/.vim/{{ item }}"
+    owner: "{{ user_name }}"
+    mode: 0775
+    state: directory
+  with_items:
+    - ftplugin
+    - functions
+
+- name: Vim configs
+  copy:
+    src: vim/{{ item }}
+    dest: "{{ user_home }}/.vim/{{ item }}"
+    owner: "{{ user_name }}"
+    mode: 0664
+  with_items:
+    - ftplugin/markdown.vim
+    - ftplugin/python.vim
+    - functions/buffer_handling.vim
+    - functions/insert_tab_wrapper.vim
+    - functions/my_fold_text.vim
+    - functions/scratch_toggle.vim
+    - functions/util.vim
+  register: vimconfigs
+
+- command: echo
+  changed_when: >
+   dotvim_dir.changed or
+   vundle_vim.changed or
+   dotvimrc.changed or
+   vimconfigs.changed
+  notify:
+    - install Vundle plugins
+    - clean Vundle plugins
+    - update Vundle plugins
+    - install YouCompleteMe

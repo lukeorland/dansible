@@ -1,0 +1,44 @@
+---
+# https://github.com/robbyrussell/oh-my-zsh#the-manual-way
+
+- name: Install zsh
+  apt:
+    name: zsh
+  sudo: yes
+  when: ansible_os_family == "Debian"
+
+- name: Clone oh-my-zsh
+  git:
+    repo: "git://github.com/robbyrussell/oh-my-zsh.git"
+    dest: "{{ user_home }}/.oh-my-zsh"
+    version: master
+
+- name: ~/.zshrc
+  file:
+    path: "{{ user_home }}/.zshrc"
+    src: "{{ user_home }}/.oh-my-zsh/templates/zshrc.zsh-template"
+    state: link
+    force: yes
+
+- name: What shell is currently set?
+  shell: printenv SHELL
+  register: current_shell
+  changed_when: '"zsh" not in current_shell.stdout'
+
+- name: Set Zsh as default shell
+  user:
+    name: "{{ user_name }}"
+    shell: /bin/zsh
+  sudo: yes
+  when: current_shell.changed and ansible_os_family != "Darwin"
+
+- name: Set Zsh as default shell
+  shell: chsh -s zsh
+  sudo: yes
+  when: current_shell.changed and ansible_os_family == "Darwin"
+
+- name: Zsh theme
+  lineinfile:
+    line: 'ZSH_THEME="steeef"'
+    dest: "{{ user_home }}/.oh-my-zsh/custom/theme.zsh"
+    create: yes

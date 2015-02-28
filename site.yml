@@ -1,0 +1,5 @@
+- name: Configure development environment on this host
+  hosts: all
+  roles:
+    - dotfiles
+  sudo: no

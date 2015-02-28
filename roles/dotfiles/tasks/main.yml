@@ -1,0 +1,5 @@
+---
+- include: add_gitconfig.yml
+- include: screen.yml
+- include: vim.yml
+- include: oh_my_zsh.yml
