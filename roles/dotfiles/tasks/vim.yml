@@ -69,6 +69,4 @@
    vimconfigs.changed
   notify:
     - install Vundle plugins
-    - clean Vundle plugins
-    - update Vundle plugins
     - install YouCompleteMe

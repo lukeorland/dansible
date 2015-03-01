@@ -3,13 +3,7 @@
 # Without sending a keypress (i.e. `yes |`), Vim will wait forever to
 # acknowledge that you have to build YouCompleteMe.
 - name: install Vundle plugins
-  shell: yes | vim +PluginInstall +qall
-
-- name: clean Vundle plugins
-  shell: yes | vim +PluginClean +qall
-
-- name: update Vundle plugins
-  shell: yes | vim +PluginUpdate +qall
+  command: vim +PluginInstall! +PluginClean! +qall
 
 - name: install YouCompleteMe
   command: ./install.sh
