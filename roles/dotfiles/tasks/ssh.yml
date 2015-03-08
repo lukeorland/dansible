@@ -1,21 +1,5 @@
 ---
 
-- name: .screenrc
-  copy:
-    src: screenrc
-    dest: "{{ user_home }}/.screenrc"
-    owner: "{{ user_name }}"
-    group: "{{ group_name }}"
-    mode: 0664
-
-- name: .ssh
-  file:
-    path: "{{ user_home }}/.ssh/rc"
-    owner: "{{ user_name }}"
-    group: "{{ group_name }}"
-    mode: 0775
-    state: directory
-
 - name: .ssh/rc
   copy:
     src: ssh/rc
