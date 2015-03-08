@@ -115,7 +115,7 @@
 [core]
   autocrlf = false
   editor = vim
-	excludesfile = /Users/lorland/.gitignore
+  excludesfile = ~/.gitignore
 [advice]
   statusHints = false
 [diff]
