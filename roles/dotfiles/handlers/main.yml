@@ -1,11 +1,6 @@
 ---
 
-# Without sending a keypress (i.e. `yes |`), Vim will wait forever to
-# acknowledge that you have to build YouCompleteMe.
-- name: install Vundle plugins
-  command: vim +PluginInstall! +PluginClean! +qall
-
-- name: install YouCompleteMe
-  command: ./install.sh
+- name: install vim plugins
+  command: rake
   args:
-    chdir: "{{ user_home }}/.vim/bundle/YouCompleteMe"
+    chdir: ~/.vim
