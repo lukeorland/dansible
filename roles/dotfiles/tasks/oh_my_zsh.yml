@@ -20,22 +20,12 @@
     state: link
     force: yes
 
-- name: What shell is currently set?
-  shell: printenv SHELL
-  register: current_shell
-  changed_when: '"zsh" not in current_shell.stdout'
-
-- name: Set Zsh as default shell
-  user:
-    name: "{{ user_name }}"
-    shell: /bin/zsh
+- name: Set Zsh as default shell (OS X)
+  shell: chsh -s `which zsh` {{ user_name }}
   sudo: yes
-  when: current_shell.changed and ansible_os_family != "Darwin"
-
-- name: Set Zsh as default shell
-  shell: chsh -s zsh
-  sudo: yes
-  when: current_shell.changed and ansible_os_family == "Darwin"
+  register: chsh
+  changed_when: '"chsh: no changes made" not in chsh.stderr'
+  when: ansible_os_family == "Darwin"
 
 - name: Zsh theme
   lineinfile:
