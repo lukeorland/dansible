@@ -16,3 +16,7 @@ Install Ansible, clone this repository onto the machine to be configured, and lo
 # Run
 
 `cd` to the top directory of this repository. Run `./run.sh`. Type your user's password.
+
+
+# TODO:
+- turn this into a ansible-galaxy-compatible role
