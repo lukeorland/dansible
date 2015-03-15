@@ -20,3 +20,8 @@ Install Ansible, clone this repository onto the machine to be configured, and lo
 
 # TODO:
 - turn this into a ansible-galaxy-compatible role
+- instead of symlinking, after installing or updating oh-my-zsh, recopy
+  ~/.oh-my-zsh/templates/zshrc.zsh-template to ~/.zshrc
+    - then lineinfile these:
+        - `plugins=(git pyenv python rbenv ruby vi-mode)`
+        - `DISABLE_AUTO_UPDATE="true"`

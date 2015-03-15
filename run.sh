@@ -4,4 +4,5 @@ ansible-playbook \
     --inventory-file="localhost," \
     -vvvv \
     --ask-sudo-pass \
+    -e "user=$USER" \
     site.yml

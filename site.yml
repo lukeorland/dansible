@@ -1,5 +1,5 @@
 - name: Configure development environment on this host
   hosts: all
   roles:
-    - dotfiles
+    - lukeorland.dotfiles
   sudo: no
